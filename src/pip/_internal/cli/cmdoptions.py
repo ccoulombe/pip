@@ -529,10 +529,10 @@ def prefer_binary():
     )
 
 
-def prefer_local_compatible():
+def prefer_links():
     return Option(
-        '--prefer-local-compatible',
-        dest='prefer_local_compatible',
+        '--prefer-links',
+        dest='prefer_links',
         action="store_true",
         default=False,
         help=("Prefer local packages (e.g. through --find-links) that "

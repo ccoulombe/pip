@@ -69,7 +69,7 @@ class DownloadCommand(RequirementCommand):
             help=("Download packages into <dir>."),
         )
 
-        cmd_opts.add_option(cmdoptions.prefer_local_compatible())
+        cmd_opts.add_option(cmdoptions.prefer_links())
         cmd_opts.add_option(cmdoptions.platform())
         cmd_opts.add_option(cmdoptions.python_version())
         cmd_opts.add_option(cmdoptions.implementation())

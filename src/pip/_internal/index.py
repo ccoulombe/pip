@@ -237,7 +237,7 @@ class PackageFinder(object):
                  trusted_hosts=None, process_dependency_links=False,
                  session=None, format_control=None, platform=None,
                  versions=None, abi=None, implementation=None,
-                 prefer_binary=False, prefer_local_compatible=False):
+                 prefer_binary=False, prefer_links=False):
         """Create a PackageFinder.
 
         :param format_control: A FormatControl object or None. Used to control
@@ -254,7 +254,7 @@ class PackageFinder(object):
             to pep425tags.py in the get_supported() method.
         :param implementation: A string or None. This is passed directly
             to pep425tags.py in the get_supported() method.
-        :param prefer_local_compatible: A bool. If True, remote URLs will
+        :param prefer_links: A bool. If True, remote URLs will
             not be checked for newer package versions as long as a local
             package is found that satisfies the requested package version.
 
@@ -314,7 +314,7 @@ class PackageFinder(object):
 
         # Do we prefer compatible packages found locally or do we want to
         # check for updates on remote URLs
-        self.prefer_local_compatible = prefer_local_compatible
+        self.prefer_links = prefer_links
 
         # If we don't have TLS enabled, then WARN if anyplace we're looking
         # relies on TLS.
@@ -673,7 +673,7 @@ class PackageFinder(object):
 
         applicable_candidates = None
 
-        if self.prefer_local_compatible:
+        if self.prefer_links:
             candidates = self.find_all_candidates(req.name,
                                                   check_remotely=False)
 
@@ -687,7 +687,7 @@ class PackageFinder(object):
         best_candidate = None
 
         # See if there are any candidates found locally provided by find_links
-        if self.prefer_local_compatible and self.find_links:
+        if self.prefer_links and self.find_links:
             file_candidates = [cand for cand in applicable_candidates
                                if cand.location.scheme == "file"]
             if file_candidates:

@@ -307,7 +307,7 @@ def test_finder_pefer_local_compatible_no_remote_call(data):
             links,
             ["http://pypi.org/simple/"],
             session=PipSession(),
-            prefer_local_compatible=True,
+            prefer_links=True,
         )
         req = install_req_from_line("gmpy>=1.15")
         link = finder.find_requirement(req, False)
@@ -316,9 +316,9 @@ def test_finder_pefer_local_compatible_no_remote_call(data):
         assert mock_method.call_count == 0
 
 
-def test_finder_prefer_local_compatible_checks_remotely(data):
+def test_finder_prefer_links_checks_remotely(data):
     """
-    Test PackageFinder with prefer-local-compatible, that package from
+    Test PackageFinder with prefer-links, that package from
     remote URL is used when no local compatible package found.
     """
     links = [data.find_links, 'https://foo/gmpy-1.16.tar.gz']
@@ -328,7 +328,7 @@ def test_finder_prefer_local_compatible_checks_remotely(data):
             links,
             ["http://pypi.org/simple/"],
             session=PipSession(),
-            prefer_local_compatible=True,
+            prefer_links=True,
         )
         req = install_req_from_line("gmpy==1.16")
         link = finder.find_requirement(req, False)
